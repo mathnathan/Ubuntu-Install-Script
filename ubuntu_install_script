@@ -1,0 +1,117 @@
+#! /bin/bash
+
+function green {
+	echo -e "\e[00;32m$1\e[00m"
+}
+
+function red {
+	echo -e "\e[00;31m$1\e[00m"
+}
+
+
+# ---- Default Ubuntu Repository Packages ----
+
+green "\nInstalling Python 2.7 libraries and tools\n"
+
+apt-get -f --assume-yes install python-all
+apt-get -f --assume-yes install python-all-dev
+apt-get -f --assume-yes install python-setuptools
+apt-get -f --assume-yes install python-numpy
+apt-get -f --assume-yes install python-scientific
+apt-get -f --assume-yes install python-scipy
+apt-get -f --assume-yes install python-matplotlib
+apt-get -f --assume-yes install python-netcdf
+apt-get -f --assume-yes install python-pygame
+apt-get -f --assume-yes install ipython
+
+
+green "\nInstalling Python 3 libraries and tools\n"
+
+apt-get -f --assume-yes install python3-all
+apt-get -f --assume-yes install python3-all-dev
+apt-get -f --assume-yes install python3-setuptools
+apt-get -f --assume-yes install python3-numpy
+apt-get -f --assume-yes install ipython3
+
+green "\nInstalling Programming/Build Libraries and Tools\n"
+
+# Compilers/Interpreters
+apt-get -f --assume-yes install gfortran
+apt-get -f --assume-yes install openjdk-7-jdk
+apt-get -f --assume-yes install clang
+apt-get -f --assume-yes install build-essential
+apt-get -f --assume-yes install mono-complete
+
+# Libraries
+apt-get -f --assume-yes install libboost1.48-all-dev
+apt-get -f --assume-yes install libvtk5-dev
+apt-get -f --assume-yes install openmpi-bin
+apt-get -f --assume-yes install libarmadillo-dev
+apt-get -f --assume-yes install libfftw3-dev
+apt-get -f --assume-yes install libassimp-dev
+apt-get -f --assume-yes install libglew1.6-dev
+apt-get -f --assume-yes install freeglut3-dev
+apt-get -f --assume-yes install libxi-dev 
+apt-get -f --assume-yes install libxmu-dev
+	# Computer Vision Tools
+	apt-get -f --assume-yes install libopencv-dev
+	apt-get -f --assume-yes install python-opencv
+
+# Build Tools
+apt-get -f --assume-yes install cmake
+apt-get -f --assume-yes install valgrind
+
+green "\nInstalling Applications and User Tools\n"
+
+apt-get -f --assume-yes install subversion
+apt-get -f --assume-yes install xclip
+apt-get -f --assume-yes install git
+apt-get -f --assume-yes install screen
+apt-get -f --assume-yes install byobu
+apt-get -f --assume-yes install vim
+apt-get -f --assume-yes install chromium-browser
+apt-get -f --assume-yes install wine1.4-dev
+apt-get -f --assume-yes install winetricks
+
+green "\nInstalling Drivers\n"
+
+apt-get -f --assume-yes install nvidia-current
+
+green "\nInstalling Networking Tools\n"
+
+apt-get -f --assume-yes install sshfs
+apt-get -f --assume-yes install samba
+apt-get -f --assume-yes install smbfs
+
+
+# ---- Packages not in Ubuntu's Repositories ----
+
+green "\nDownloading and Installing Packges not in the Repository\n"
+
+mkdir /var/log/ubuntu_install
+
+green "\n... SimpleCV1.2\n"
+
+SIMPLECV="http://downloads.sourceforge.net/project/simplecv/1.2/SimpleCV-1.2.deb?r=http%3A%2F%2Fsimplecv.org%2F&ts=1332342142&use_mirror=superb-dca2"
+mkdir /tmp/simplecv
+wget -c -U mozilla -o /var/log/ubuntu_install/simplecv_wget_log.txt -O /tmp/simplecv/SimpleCV.deb $SIMPLECV
+dpkg -i /tmp/simplecv/SimpleCV.deb
+
+green "\n... Eigen3.0.5\n"
+
+EIGEN="http://bitbucket.org/eigen/eigen/get/3.0.5.tar.bz2"
+mkdir /tmp/eigen
+wget -c -U mozilla -o /var/log/ubuntu_install/eigen_wget_log.txt -O /tmp/eigen/eigen3.0.5.tar.bz2 $EIGEN
+
+green "\n... Flann1.7\n"
+
+mkdir /tmp/flann
+FLANN="http://people.cs.ubc.ca/~mariusm/uploads/FLANN/flann-1.7.1-src.zip"
+wget -c -U mozilla -o /var/log/ubuntu_install/flann_wget_log.txt -O /tmp/flann/flann-1.7.1.zip $FLANN
+
+# --- Point Cloud Library future support ---
+
+#add-apt-repository ppa:v-launchpad-jochen-sprickerhof-de/pcl
+#apt-get update
+#apt-get install libpcl-all
+
