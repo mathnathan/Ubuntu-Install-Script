@@ -1,17 +1,27 @@
 #! /bin/bash
 
-function green {
+# --------- Ubuntu 12.04 Install Script -----------
+#
+# Intended for use in the Vizualization Lab at 
+# Florida State University's Department of
+# Scientific Computing
+#
+# Authors: Nathan Crock, Evan Bollig, Andrew Young
+#
+# -------------------------------------------------
+
+function print_update {
 	echo -e "\e[00;32m$1\e[00m"
 }
 
-function red {
+function print_error {
 	echo -e "\e[00;31m$1\e[00m"
 }
 
 
 # ---- Default Ubuntu Repository Packages ----
 
-green "\nInstalling Python 2.7 libraries and tools\n"
+print_update "\nInstalling Python 2.7 libraries and tools\n"
 
 apt-get -f --assume-yes install python-all
 apt-get -f --assume-yes install python-all-dev
@@ -26,7 +36,7 @@ apt-get -f --assume-yes install ipython
 apt-get -f --assume-yes install python-yaml
 
 
-green "\nInstalling Python 3 libraries and tools\n"
+print_update "\nInstalling Python 3 libraries and tools\n"
 
 apt-get -f --assume-yes install python3-all
 apt-get -f --assume-yes install python3-all-dev
@@ -34,7 +44,7 @@ apt-get -f --assume-yes install python3-setuptools
 apt-get -f --assume-yes install python3-numpy
 apt-get -f --assume-yes install ipython3
 
-green "\nInstalling Programming/Build Libraries and Tools\n"
+print_update "\nInstalling Programming/Build Libraries and Tools\n"
 
 # Compilers/Interpreters
 apt-get -f --assume-yes install gfortran
@@ -64,7 +74,7 @@ apt-get -f --assume-yes install cmake
 apt-get -f --assume-yes install valgrind
 apt-get -f --assume-yes install doxygen
 
-green "\nInstalling Applications and User Tools\n"
+print_update "\nInstalling Applications and User Tools\n"
 
 apt-get -f --assume-yes install mercurial
 apt-get -f --assume-yes install subversion
@@ -78,12 +88,14 @@ apt-get -f --assume-yes install chromium-browser
 apt-get -f --assume-yes install wine1.4-dev
 apt-get -f --assume-yes install winetricks
 apt-get -f --assume-yes install wget
+apt-get -f --assume-yes install acroread
+apt-get -f --assume-yes install texlive-full
 
-green "\nInstalling Drivers\n"
+print_update "\nInstalling Drivers\n"
 
 apt-get -f --assume-yes install nvidia-current
 
-green "\nInstalling Networking Tools\n"
+print_update "\nInstalling Networking Tools\n"
 
 apt-get -f --assume-yes install sshfs
 apt-get -f --assume-yes install samba
@@ -92,13 +104,22 @@ apt-get -f --assume-yes install smbfs
 
 # ---- Packages not in Ubuntu's Repositories ----
 
-green "\nDownloading and Installing Packges not in the Repository\n"
+print_update "\nDownloading and Installing Packges not in Ubuntu's Repository\n"
 
 mkdir /var/log/ubuntu_install
 
 # ---------------------------------------------------
 
-green "\n... SimpleCV1.2\n"
+print_update "\n... Visit2.4.2\n"
+
+VISIT="http://portal.nersc.gov/svn/visit/trunk/releases/2.4.2/visit2_4_2.linux-x86_64-ubuntu11.tar.gz"
+wget -c -U mozilla -o /var/log/ubuntu_install/visit_wget_log.txt -O /tmp/visit2_4_2.linux-x86_64.tar.gz $VISIT
+tar xvzf /tmp/visit2_4_2.linux-x86_64.tar.gz -C /usr/share
+echo "PATH=$PATH:/usr/share/visit2_4_2.linux-x86_64/bin" >> /etc/environment
+
+# ---------------------------------------------------
+
+print_update "\n... SimpleCV1.2\n"
 
 SIMPLECV="http://downloads.sourceforge.net/project/simplecv/1.2/SimpleCV-1.2.deb?r=http%3A%2F%2Fsimplecv.org%2F&ts=1332342142&use_mirror=superb-dca2"
 mkdir /tmp/simplecv
@@ -107,7 +128,7 @@ dpkg -i /tmp/simplecv/SimpleCV.deb
 
 # ---------------------------------------------------
 
-green "\n... Eigen3.0.5\n"
+print_update "\n... Eigen3.0.5\n"
 
 EIGEN="http://bitbucket.org/eigen/eigen/get/3.0.5.tar.bz2"
 mkdir /tmp/eigen
@@ -117,7 +138,7 @@ wget -c -U mozilla -o /var/log/ubuntu_install/eigen_wget_log.txt -O /tmp/eigen/e
 
 # ---------------------------------------------------
 
-green "\n... Flann1.7\n"
+print_update "\n... Flann1.7\n"
 
 mkdir /tmp/flann
 FLANN="http://people.cs.ubc.ca/~mariusm/uploads/FLANN/flann-1.7.1-src.zip"
@@ -127,7 +148,7 @@ wget -c -U mozilla -o /var/log/ubuntu_install/flann_wget_log.txt -O /tmp/flann/f
 
 # ---------------------------------------------------
 
-green "\n... Qhull2012.1\n"
+print_update "\n... Qhull2012.1\n"
 
 mkdir /tmp/qhull
 QHULL="http://www.qhull.org/download/qhull-2012.1-src.tgz"
@@ -137,19 +158,19 @@ wget -c -U mozilla -o /var/log/ubuntu_install/qhull_wget_log.txt -O /tmp/qhull/q
 
 # ---------------------------------------------------
 
-green "\n... OpenNI\n"
+print_update "\n... OpenNI\n"
 
 (cd /usr/local/share; git clone https://github.com/OpenNI/OpenNI.git; cd OpenNI/Platform/Linux/CreateRedist; chmod +x RedistMaker; ./RedistMaker; cd ../Redist/OpenNI-Bin-Dev-Linux-x64-v1.5.2.23; chmod +x install.sh; ./install.sh)
 
 # ---------------------------------------------------
 
-green "\n... KinectSensor\n"
+print_update "\n... KinectSensor\n"
 
 (cd /usr/local/share; git clone https://github.com/avin2/SensorKinect; cd SensorKinect/Platform/Linux-x86/CreateRedist; chmod +x RedistMaker; ./RedistMaker; cd ../Redist/Sensor-Bin-Dev-Linux-x64-v5.1.0.25; chmod +x install.sh; ./install.sh)
 
 # ---------------------------------------------------
 
-green "\n... Point Cloud Library\n"
+print_update "\n... Point Cloud Library\n"
 
 mkdir /tmp/pcl
 PCL="http://www.pointclouds.org/assets/files/1.4.0/PCL-1.4.0-Source.tar.bz2"
