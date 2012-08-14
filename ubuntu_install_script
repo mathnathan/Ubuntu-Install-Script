@@ -112,10 +112,10 @@ mkdir /var/log/ubuntu_install
 
 print_update "\n... Visit2.4.2\n"
 
-VISIT="http://portal.nersc.gov/svn/visit/trunk/releases/2.4.2/visit2_4_2.linux-x86_64-ubuntu11.tar.gz"
-wget -c -U mozilla -o /var/log/ubuntu_install/visit_wget_log.txt -O /tmp/visit2_4_2.linux-x86_64.tar.gz $VISIT
-tar xvzf /tmp/visit2_4_2.linux-x86_64.tar.gz -C /usr/share
-echo "PATH=$PATH:/usr/share/visit2_4_2.linux-x86_64/bin" >> /etc/environment
+VISIT="http://portal.nersc.gov/svn/visit/trunk/releases/2.5.2/visit2_5_2.linux-x86_64-ubuntu11.tar.gz"
+wget -c -U mozilla -o /var/log/ubuntu_install/visit_wget_log.txt -O /tmp/visit2_5_2.linux-x86_64.tar.gz $VISIT
+tar xvzf /tmp/visit2_5_2.linux-x86_64.tar.gz -C /usr/share
+echo "PATH=$PATH:/usr/share/visit2_5_2.linux-x86_64/bin" >> /etc/environment
 
 # ---------------------------------------------------
 
