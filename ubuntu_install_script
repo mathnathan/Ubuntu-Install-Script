@@ -32,6 +32,7 @@ apt-get -f --assume-yes install python-scipy
 apt-get -f --assume-yes install python-matplotlib
 apt-get -f --assume-yes install python-netcdf
 apt-get -f --assume-yes install python-pygame
+apt-get -f --assume-yes install python-imaging
 apt-get -f --assume-yes install ipython
 apt-get -f --assume-yes install python-yaml
 
